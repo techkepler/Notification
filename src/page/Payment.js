@@ -6,7 +6,6 @@ import ESwea from "./eSewa";
 const Payment = () => {
   const { bookedId } = StateProvider();
   const [eventData, setEventData] = useState({});
-  console.log("bookeevent paymemnt", bookedId);
 
   // fetching booked event data
   useEffect(() => {
@@ -15,7 +14,6 @@ const Payment = () => {
         const res = await axiosPublic.get(
           `event/get-booked-event/${localStorage.getItem("bookedId")}`
         );
-        console.log(res);
         setEventData(res.data?.bookedEvent);
         // if (res?.status === 201) {
         //   setMsg("Event Booked Successfully. Please Proceed For Payment.");
@@ -26,6 +24,33 @@ const Payment = () => {
     };
     fetchData();
   }, [bookedId]);
+
+  const khaltiData = {
+    return_url: "http://127.0.0.1:3001/success/",
+    website_url: "http://127.0.0.1:3001/home/",
+    amount: 1100,
+    purchase_order_id: eventData?._id,
+    purchase_order_name: eventData?.event?.title,
+    customer_info: {
+      name: eventData?.fullName,
+      email: eventData?.email,
+      phone: eventData?.phone,
+    },
+  };
+
+  const handlSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axiosPublic.post("payment/khalti/", {
+        prodData: khaltiData,
+      });
+      console.log(res.data, "response");
+
+      window.location.href = res.data.khalti_url;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //   //   handling change data
   //   const handleChange = (e) => {
@@ -129,6 +154,15 @@ const Payment = () => {
 
               <div>
                 <ESwea data={eventData} />
+              </div>
+
+              <div>
+                <button
+                  onClick={handlSubmit}
+                  className="bg-gray-700 px- 4 py-2 rounded-md"
+                >
+                  Pay With Khalti
+                </button>
               </div>
             </div>
 

@@ -5,12 +5,22 @@ import toast, { Toaster } from "react-hot-toast";
 import { requestForToken, onMessageListener } from "./firebase";
 
 const Notification = () => {
-  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notification, setNotification] = useState({
+    title: "",
+    body: "",
+    image: "",
+  });
+
   // const notifyToast = () => toast(ToastDisplay);
   const notify = () => toast(<ToastDisplay />);
   function ToastDisplay() {
     return (
       <div>
+        <img
+          src={`http://localhost:3000/${notification?.image}`}
+          alt="Notification"
+          className="w-12 h-12"
+        />
         <p>
           <b>{notification?.title}</b>
         </p>
@@ -34,6 +44,7 @@ const Notification = () => {
       setNotification({
         title: payload?.data?.title,
         body: payload?.data?.body,
+        image: payload?.data?.image,
       });
     })
     .catch((err) => console.log("failed: ", err));

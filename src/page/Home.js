@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axiosPublic from "../api/api";
 import Notification from "../firebase/Notification";
 
@@ -29,7 +29,7 @@ const Home = () => {
         Welcome To Home Page
       </h1>
 
-      <div className="flex gap-10 justify-center items-center my-20">
+      <div className="flex flex-wrap gap-10 justify-center items-center my-20">
         {eventData?.map((event) => (
           <div key={event.id} className="relative  w-96 pb-8 shadow-lg">
             <img

@@ -28,7 +28,7 @@ const Login = () => {
       notify("Login Successfully");
 
       setTimeout(() => {
-        // navigate("/home/");
+        navigate("/home/");
       }, 2000);
     } catch (error) {
       console.log(error);

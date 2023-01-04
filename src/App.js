@@ -8,6 +8,8 @@ import SuccessPage from "./page/SuccessPage";
 import FailurePage from "./page/FailurePage";
 import Login from "./page/Login";
 import LandingPage from "./page/LandingPage";
+import Pdf from "./page/Pdf";
+import EsweaSuccessPage from "./page/EsweaSuccess";
 
 const App = () => {
   return (
@@ -18,8 +20,10 @@ const App = () => {
         <Route path="/book/:id" element={<BookNow />} />
         <Route path="/pay-now/" element={<Payment />} />
         <Route path="/success/" element={<SuccessPage />} />
+        <Route path="/eswea/success/" element={<EsweaSuccessPage />} />
         <Route path="/failure/" element={<FailurePage />} />
         <Route path="/login/" element={<Login />} />
+        <Route path="/pdf/" element={<Pdf />} />
       </Routes>
     </BrowserRouter>
   );

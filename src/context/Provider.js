@@ -4,8 +4,11 @@ export const ContextCreator = createContext();
 
 const ContextProvider = ({ children }) => {
   const [bookedId, setBookedId] = useState("");
+  const [pdfData, setPdfData] = useState("");
   return (
-    <ContextCreator.Provider value={{ bookedId, setBookedId }}>
+    <ContextCreator.Provider
+      value={{ bookedId, setBookedId, pdfData, setPdfData }}
+    >
       {children}
     </ContextCreator.Provider>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosPublic from "../api/api";
 import { StateProvider } from "../context/Provider";
+import Notification from "../firebase/Notification";
 
 const initalData = {
   ticket: 1,
@@ -11,7 +12,7 @@ const initalData = {
 };
 
 const BookNow = () => {
-  const { bookedId, setBookedId } = StateProvider();
+  const { bookedId, setBookedId, setPdfData } = StateProvider();
   const { id } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState({});
@@ -70,10 +71,10 @@ const BookNow = () => {
     }
   };
 
-  console.log("booke Id", bookedId);
-
   return (
     <>
+      <Notification />
+
       {msg && <p className="bg-green-600 text-center py-2">{msg}</p>}
       {Object.keys(eventData).length > 0 && (
         <div>

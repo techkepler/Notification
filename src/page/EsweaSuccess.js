@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axiosPublic from "../api/api";
 
-const SuccessPage = () => {
+const EsweaSuccessPage = () => {
   const search = useLocation().search;
-  const pidx = new URLSearchParams(search).get("pidx");
-  const purchase_order_id = new URLSearchParams(search).get(
-    "purchase_order_id"
-  );
+  const rid = new URLSearchParams(search).get("refId");
+  const pid = new URLSearchParams(search).get("oid");
+
+  const amt = new URLSearchParams(search).get("amt");
+
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
     const sendData = async () => {
       try {
-        const res = await axiosPublic.post("payment/web/verification/khalti", {
-          pidx: pidx,
-          purchase_order_id: purchase_order_id,
+        const res = await axiosPublic.post("payment/web/verification/eswea", {
+          transactionId: rid,
+          productId: pid,
+          amount: amt,
         });
 
         if (res.status === 200) {
@@ -28,7 +30,7 @@ const SuccessPage = () => {
       }
     };
     sendData();
-  }, [pidx, purchase_order_id]);
+  }, [amt, pid, rid]);
 
   return (
     <div>
@@ -38,4 +40,4 @@ const SuccessPage = () => {
   );
 };
 
-export default SuccessPage;
+export default EsweaSuccessPage;
